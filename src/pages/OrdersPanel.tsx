@@ -54,7 +54,7 @@ export default function OrdersPanel() {
         {orders?.map((order) => (
           <Box key={order.id} sx={{ border: 1, borderColor: 'divider', padding: 2, marginBottom: 2, marginLeft: 2 }}>
             <Typography variant="body1">Order ID: {order.id}</Typography>
-            <Typography variant="body1">Total: ${formatPrice(order.total)}</Typography>
+            <Typography variant="body1">Total: {formatPrice(order.total)}</Typography>
             <Typography variant="body1">Status: {order.status}</Typography>
             <Button onClick={() => handleOpenOrder(order.id)}>Open</Button>
             <Button disabled onClick={() => handleEditOrder(order.id)}>Edit (BETA)</Button>
