@@ -1,4 +1,5 @@
 import Home from "./pages/Menu";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from "./providers/CartContext";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -8,9 +9,13 @@ import './App.css';
 
 function App() {
   return (
-    <CartProvider>
-      <Home />
-    </CartProvider>
+    <Router>
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </CartProvider>
+    </Router>
   );
 }
 
