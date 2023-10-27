@@ -14,7 +14,9 @@ import { useMemo } from 'react';
 
 export function ShoppingCartDrawer() {
     const { isCartOpen, cart, toggleCartOpen, clearCart } = useCart();
+
     const navigate = useNavigate();
+
     const handlePlaceOrder = async () => {
         const order: Order = {
             id: 'order-1',

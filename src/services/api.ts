@@ -48,6 +48,16 @@ export const fetchOrders = async () => {
   }
 };
 
+export const removeDish = async (id: string) => {
+  try {
+    const response = await api.delete(`/dishes/${id}`);
+    return response.data;
+  } catch (error) {
+    //toast('Error while deleting order', { type: 'error' })
+    throw error;
+  }
+};
+
 export const fetchDishes = async (): Promise<Dish[] | undefined> => {
     try {
       const response = await api.get('/dishes');

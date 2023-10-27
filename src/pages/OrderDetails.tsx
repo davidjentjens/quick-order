@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Paper, Typography, Grid } from '@mui/material';
+import { Paper, Typography, Grid, Button } from '@mui/material';
 import { Order } from '../interfaces/Order';
 import { getOrder } from '../services/api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function OrderDetails() {
     const { id } = useParams();
+
+    const navigate = useNavigate();
 
     const [order, setOrder] = useState<Order>();
 
@@ -53,6 +55,8 @@ export default function OrderDetails() {
                         <Typography variant="h6" gutterBottom>
                             Total: {formattedPrice}
                         </Typography>
+
+                        <Button onClick={() => navigate('/')}>Back to Menu</Button>
                     </Paper>
                 </Grid>
             </Grid>
