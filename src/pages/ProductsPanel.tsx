@@ -46,7 +46,7 @@ export default function ProductsPanel() {
 
       <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: 2 }}>
         {dishes?.map((dish) => (
-          <Box key={dish.id} sx={{ bdish: 1, bdishColor: 'divider', padding: 2, marginBottom: 2 }}>
+          <Box key={dish.id} sx={{ border: 1, borderColor: 'divider', padding: 2, marginBottom: 2, marginLeft: 2 }}>
             <Typography variant="body1">Product ID: {dish.id}</Typography>
             <Typography variant="body1">Name: {dish.name}</Typography>
             <Typography variant="body1">Price: {formatPrice(dish.price)}</Typography>
