@@ -34,26 +34,28 @@ export default function OrderDetails() {
     }).format(order.total);
 
     return (
-        <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} md={6}>
-                <Paper elevation={3} style={{ padding: '20px' }}>
-                    <Typography variant="h5" gutterBottom>
-                        Order Details
-                    </Typography>
+        <div style={{ height: '100vh', display: 'flex', alignItems: 'center', background: '#bfbfbf' }}>
+            <Grid container spacing={2} justifyContent="center">
+                <Grid item xs={12} md={6}>
+                    <Paper elevation={3} style={{ padding: '20px' }}>
+                        <Typography variant="h5" gutterBottom>
+                            Order Details
+                        </Typography>
 
-                    <Typography variant="subtitle1">
-                        Order Number: {order.id}
-                    </Typography>
+                        <Typography variant="subtitle1">
+                            Order Number: {order.id}
+                        </Typography>
 
-                    <Typography variant="subtitle1">
-                        Order Status: {order.status}
-                    </Typography>
+                        <Typography variant="subtitle1">
+                            Order Status: {order.status}
+                        </Typography>
 
-                    <Typography variant="h6" gutterBottom>
-                        Total: {formattedPrice}
-                    </Typography>
-                </Paper>
+                        <Typography variant="h6" gutterBottom>
+                            Total: {formattedPrice}
+                        </Typography>
+                    </Paper>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 }
