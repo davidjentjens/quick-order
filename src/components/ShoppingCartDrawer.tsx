@@ -6,13 +6,26 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useCart } from '../providers/CartContext';
 import { List } from '@mui/material';
 import CartItem from './CartItem';
+import { toast } from 'react-toastify';
+import { redirect } from "react-router-dom";
+import { Order } from '../interfaces/Order';
+import { createOrder } from '../services/api';
 
-export function OrderDrawer() {
+export function ShoppingCartDrawer() {
     const { isCartOpen, cart, toggleCartOpen, clearCart } = useCart();
 
-    const handlePlaceOrder = () => {
-        // Implement your place order logic here
-        // You can call addToCart function or any other logic to place the order
+    const handlePlaceOrder = async () => {
+        const order: Order = {
+            id: 'order-1',
+            dishSelections: cart,
+            status: 'received',
+        }
+
+        const createdOrder = await createOrder(order)
+        if (createdOrder) {
+            toast(`Order has been placed`, { type: 'success', autoClose: 1000 });
+            redirect('/order-details')
+        }
     };
 
     return (

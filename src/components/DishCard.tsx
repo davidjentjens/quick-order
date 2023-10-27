@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Dish } from "../interfaces/Dish";
 import { useCart } from "../providers/CartContext";
 import { DishSelection } from "../interfaces/Order";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function DishCard(dishProps: Dish) {
     const { description, imageUrl, name, price } = dishProps;
@@ -32,18 +33,19 @@ export default function DishCard(dishProps: Dish) {
                     title="green iguana"
                 />
                 <div style={{ height: 10 }} />
-                <Typography variant="h4">
+                <Typography variant="h5">
                     {name}
                 </Typography>
+                <div style={{ height: 10 }} />
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {description}
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="h6" component="div" color="#8f2b0a">
                     {formattedPrice}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={addToCart}>Add to Cart</Button>
+                <Button size="small" color="error" onClick={addToCart} startIcon={<ShoppingCartIcon />}>Add to Cart</Button>
             </CardActions>
         </Card>
     );

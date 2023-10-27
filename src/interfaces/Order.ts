@@ -9,7 +9,7 @@ export interface DishSelection {
 }
 
 export interface Order {
-    id: number;
+    id: string;
     status: Status;
     dishSelections: DishSelection[];
 }

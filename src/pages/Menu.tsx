@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { Dish } from '../interfaces/Dish';
 import MenuHeader from '../components/MenuHeader';
 import { fetchDishes } from '../services/api';
-import { OrderDrawer } from '../components/OrderDrawer';
+import { ShoppingCartDrawer } from '../components/ShoppingCartDrawer';
 import { DishList } from '../components/DishList';
 
 export default function Home() {
@@ -11,12 +10,9 @@ export default function Home() {
 
     useEffect(() => {
         async function loadDishes() {
-            try {
-                const data = await fetchDishes();
+            const data = await fetchDishes();
+            if (data) {
                 setDishes(data);
-            } catch (error) {
-                toast(`Error fetching menu items: ${error}`);
-                console.error('Error fetching menu items:', error);
             }
         }
 
@@ -24,10 +20,10 @@ export default function Home() {
     }, []);
 
     return (
-        <div>
-            <OrderDrawer />
+        <>
             <MenuHeader />
             <DishList dishes={dishes} />
-        </div>
+            <ShoppingCartDrawer />
+        </>
     );
 }
