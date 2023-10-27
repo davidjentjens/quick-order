@@ -1,4 +1,5 @@
 import Home from "./pages/Menu";
+import AdminMenu from "./pages/AdminMenu";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from "./providers/CartContext";
 import '@fontsource/roboto/300.css';
@@ -13,6 +14,7 @@ function App() {
       <CartProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/admin/" element={<AdminMenu />} />
         </Routes>
       </CartProvider>
     </Router>
