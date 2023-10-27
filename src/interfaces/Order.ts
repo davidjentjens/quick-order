@@ -7,7 +7,6 @@ export interface DishSelection {
     quantity: number;
     dish: Dish
 }
-
 export interface Order {
     id: string;
     status: Status;

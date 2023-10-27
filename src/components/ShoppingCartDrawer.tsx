@@ -26,6 +26,9 @@ export function ShoppingCartDrawer() {
             toast(`Order has been placed`, { type: 'success', autoClose: 1000 });
             redirect('/order-details')
         }
+
+        // TODO REMOVER
+        redirect('/order-details')
     };
 
     return (

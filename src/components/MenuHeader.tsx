@@ -50,7 +50,7 @@ export default function MenuHeader() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <div style={{ height: 48 }} />
+            <div style={{ height: 64 }} />
         </Box>
     );
 }

@@ -5,8 +5,18 @@ import { Order } from '../interfaces/Order';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3004',
+  baseURL: 'https://quickorderapi.azurewebsites.net/api/v1',
 });
+
+export const getOrder = async (id: string) => {
+  try {
+    const response = await api.get(`/orders/${id}`);
+    return response.data;
+  } catch (error) {
+    toast('Error while getting order', { type: 'error' })
+    console.error(error);
+  }
+};
 
 export const createOrder = async (orderData: Order) => {
   try {
@@ -30,7 +40,7 @@ export const fetchOrders = async () => {
 
 export const fetchDishes = async (): Promise<Dish[] | undefined> => {
     try {
-      const response = await api.get('/menu');
+      const response = await api.get('/dishes');
       return response.data;
     } catch (error) {
       toast('Error while fetching dishes', { type: 'error' })
