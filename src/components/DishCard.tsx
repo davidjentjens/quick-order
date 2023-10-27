@@ -12,8 +12,9 @@ export default function DishCard(dishProps: Dish) {
 
     const { dispatch, toggleCartOpen } = useCart();
 
-    const addToCart = (menuItem: DishSelection) => {
-        dispatch({ type: 'ADD_TO_CART', payload: menuItem });
+    const addToCart = () => {
+        const dishSelection: DishSelection = { id: `${dishProps.id}-selection`, dish: dishProps, quantity: 1 }
+        dispatch({ type: 'ADD_TO_CART', payload: dishSelection });
         toggleCartOpen();
     };
 
@@ -27,9 +28,10 @@ export default function DishCard(dishProps: Dish) {
             <CardContent>
                 <CardMedia
                     sx={{ height: 140 }}
-                    image="https://images.immediate.co.uk/production/volatile/sites/30/2023/06/Ultraprocessed-food-58d54c3.jpg?quality=90&webp=true&resize=300,272"
+                    image={imageUrl}
                     title="green iguana"
                 />
+                <div style={{ height: 10 }} />
                 <Typography variant="h4">
                     {name}
                 </Typography>
@@ -41,7 +43,7 @@ export default function DishCard(dishProps: Dish) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={() => addToCart({ id: 1, dish: dishProps, quantity: 1 })}>Add to Cart</Button>
+                <Button size="small" onClick={addToCart}>Add to Cart</Button>
             </CardActions>
         </Card>
     );

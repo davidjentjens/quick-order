@@ -25,7 +25,7 @@ export const fetchOrders = async () => {
   }
 };
 
-export const fetchMenuItems = async (): Promise<Dish[]> => {
+export const fetchDishes = async (): Promise<Dish[]> => {
     try {
       const response = await api.get('/menu');
       return response.data;

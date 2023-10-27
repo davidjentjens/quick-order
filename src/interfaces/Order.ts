@@ -3,7 +3,7 @@ import { Dish } from "./Dish";
 type Status = 'received' | 'preparing' | 'ready-to-serve';
 
 export interface DishSelection {
-    id: number;
+    id: string;
     quantity: number;
     dish: Dish
 }
