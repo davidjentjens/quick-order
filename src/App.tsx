@@ -1,6 +1,6 @@
 import Home from "./pages/Menu";
 import AdminMenu from "./pages/AdminMenu";
-import { BrowserRouter as Router, Route, Routes, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { CartProvider } from "./providers/CartContext";
 import { ToastContainer } from 'react-toastify';
 
