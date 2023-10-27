@@ -11,4 +11,5 @@ export interface Order {
     id: string;
     status: Status;
     dishSelections: DishSelection[];
+    total: number;
 }

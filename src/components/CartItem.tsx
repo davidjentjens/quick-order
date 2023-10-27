@@ -26,6 +26,11 @@ export default function CartItem({ key, item }: CartItemProps) {
         dispatch({ type: 'REMOVE_FROM_CART', payload: item });
     };
 
+    const formattedPrice = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(item.dish.price * item.quantity);
+
     return (
         <ListItem key={key}>
             <CardMedia
@@ -38,7 +43,7 @@ export default function CartItem({ key, item }: CartItemProps) {
                 <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
                     <ListItemText
                         primary={`${item.dish?.name}`}
-                        secondary={`Quantity: ${item.quantity}`}
+                        secondary={`Price: ${formattedPrice}   Quantity: ${item.quantity}`}
                     />
                     <ButtonGroup size="small" aria-label="small outlined button group" style={{ height: '32px' }} >
                         <Button

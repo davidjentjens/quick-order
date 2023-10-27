@@ -7,10 +7,10 @@ import { useCart } from '../providers/CartContext';
 import { List } from '@mui/material';
 import CartItem from './CartItem';
 import { toast } from 'react-toastify';
-import { redirect } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { Order } from '../interfaces/Order';
 import { createOrder } from '../services/api';
+import { useMemo } from 'react';
 
 export function ShoppingCartDrawer() {
     const { isCartOpen, cart, toggleCartOpen, clearCart } = useCart();
@@ -20,19 +20,26 @@ export function ShoppingCartDrawer() {
             id: 'order-1',
             dishSelections: cart,
             status: 'received',
+            total: cart.reduce((total, item) => total + item.dish.price * item.quantity, 0)
         }
-    
+
         const createdOrder = await createOrder(order)
         if (createdOrder) {
             toast(`Order has been placed`, { type: 'success', autoClose: 1000 });
-    
+
             // Redirecione o usuário para a página 'order-details' com o 'id' da ordem como parte do URL
             navigate(`/order-details/${createdOrder.id}`);
         }
-
-        // TODO REMOVER
-        redirect('/order-details')
     };
+
+    const totalPrice = useMemo(() =>
+        cart.reduce((total, item) => total + item.dish.price * item.quantity, 0)
+        , [cart])
+
+    const formattedPrice = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(totalPrice);
 
     return (
         <Drawer
@@ -72,8 +79,9 @@ export function ShoppingCartDrawer() {
                     variant="contained"
                     color="error" // Red color
                     onClick={handlePlaceOrder}
+                    disabled={totalPrice === 0}
                 >
-                    Place Order
+                    {`TOTAL: ${formattedPrice} - Place Order`}
                 </Button>
                 <Button
                     variant="outlined"
