@@ -1,23 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { Paper, Typography, Grid, List, ListItem, ListItemText } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Paper, Typography, Grid } from '@mui/material';
 import { Order } from '../interfaces/Order';
 import { getOrder } from '../services/api';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function OrderDetails() {
+    const { id } = useParams();
+
     const [order, setOrder] = useState<Order>();
 
     useEffect(() => {
+        if (!id) {
+            toast('Order not found', { type: 'error', autoClose: 1000 })
+            return;
+        }
+
         const fetchOrder = async () => {
-            const order = await getOrder('order-1');
+            const order: Order = await getOrder(id);
             setOrder(order);
         }
 
         fetchOrder();
-    }, []);
+    }, [id]);
 
     if (!order) {
         return <div>Loading...</div>
     }
+
+    const formattedPrice = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(order.total);
 
     return (
         <Grid container spacing={2} justifyContent="center">
@@ -35,19 +49,8 @@ export default function OrderDetails() {
                         Order Status: {order.status}
                     </Typography>
 
-                    <List>
-                        {order.dishSelections.map((item, index) => (
-                            <ListItem key={index}>
-                                <ListItemText
-                                    primary={item.dish.name}
-                                    secondary={`Price: $${item.dish.price} Quantity: ${item.quantity}`}
-                                />
-                            </ListItem>
-                        ))}
-                    </List>
-
                     <Typography variant="h6" gutterBottom>
-                        Total: ${order.total}
+                        Total: {formattedPrice}
                     </Typography>
                 </Paper>
             </Grid>

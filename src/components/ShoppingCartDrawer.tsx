@@ -24,6 +24,9 @@ export function ShoppingCartDrawer() {
         }
 
         const createdOrder = await createOrder(order)
+
+        console.log("CREATED", createdOrder);
+
         if (createdOrder) {
             toast(`Order has been placed`, { type: 'success', autoClose: 1000 });
 
