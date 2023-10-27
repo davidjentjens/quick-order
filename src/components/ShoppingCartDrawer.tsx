@@ -8,23 +8,26 @@ import { List } from '@mui/material';
 import CartItem from './CartItem';
 import { toast } from 'react-toastify';
 import { redirect } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Order } from '../interfaces/Order';
 import { createOrder } from '../services/api';
 
 export function ShoppingCartDrawer() {
     const { isCartOpen, cart, toggleCartOpen, clearCart } = useCart();
-
+    const navigate = useNavigate();
     const handlePlaceOrder = async () => {
         const order: Order = {
             id: 'order-1',
             dishSelections: cart,
             status: 'received',
         }
-
+    
         const createdOrder = await createOrder(order)
         if (createdOrder) {
             toast(`Order has been placed`, { type: 'success', autoClose: 1000 });
-            redirect('/order-details')
+    
+            // Redirecione o usuário para a página 'order-details' com o 'id' da ordem como parte do URL
+            navigate(`/order-details/${createdOrder.id}`);
         }
 
         // TODO REMOVER
