@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Dish } from '../interfaces/Dish';
-import MenuHeader from '../components/MenuHeader';
 import { fetchDishes } from '../services/api';
 import { ShoppingCartDrawer } from '../components/ShoppingCartDrawer';
 import { DishList } from '../components/DishList';
+import MenuHeader from '../components/MenuHeader';
 
 export default function Home() {
     const [dishes, setDishes] = useState<Dish[]>([]);

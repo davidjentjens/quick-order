@@ -1,44 +1,63 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-
-// Mock de dados (substitua pelo seu mock ou dados reais)
-const mockOrders = [
-  { id: 1, customer: 'Customer 1', total: 50.0, status: 'Pending' },
-  { id: 2, customer: 'Customer 2', total: 35.0, status: 'Delivered' },
-  { id: 3, customer: 'Customer 3', total: 70.0, status: 'Processing' },
-];
+import { Order } from '../interfaces/Order';
+import { fetchOrders, removeOrder } from '../services/api';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrdersPanel() {
-  const [orders] = useState(mockOrders);
+  const [orders, setOrders] = useState<Order[]>();
 
-  const handleEditOrder = (orderId: number) => {
+  const navigate = useNavigate();
+
+  const handleOpenOrder = (orderId: string) => {
+    navigate(`/order-details/${orderId}`);
+  };
+
+  const handleEditOrder = (orderId: string) => {
     // Implemente a lógica para editar o pedido com o ID fornecido
     // Por exemplo, redirecionar para a página de edição do pedido
     console.log(`Editar pedido com ID ${orderId}`);
   };
 
-  const handleRemoveOrder = (orderId: number) => {
-    // Implemente a lógica para remover o pedido com o ID fornecido
-    // Por exemplo, exibir um modal de confirmação e, em seguida, fazer a remoção
-    console.log(`Remover pedido com ID ${orderId}`);
+  const handleRemoveOrder = async (orderId: string) => {
+    try {
+      removeOrder(orderId);
+      setOrders(orders?.filter(order => order.id !== orderId));
+      toast(`Order ${orderId} has been removed`, { type: 'success', autoClose: 1000 })
+    } catch {
+      toast(`Order ${orderId} could not be removed`, { type: 'error', autoClose: 1000 })
+    }
   };
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const orders: Order[] = await fetchOrders();
+      setOrders(orders);
+    }
+
+    getOrders();
+  }, []);
+
+  const formatPrice = (price: number) => new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(price);
 
   return (
     <div>
-      <Typography variant="h6" sx={{ marginBottom: 2, marginLeft: 2}}>
+      <Typography variant="h6" sx={{ marginBottom: 2, marginLeft: 2 }}>
         Orders
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        {orders.map((order) => (
-          <Box key={order.id} sx={{ border: 1, borderColor: 'divider', padding: 2, marginBottom: 2 , marginLeft: 2}}>
-            {/* Exiba os detalhes de cada pedido, como ID, cliente, total, status, etc. */}
+        {orders?.map((order) => (
+          <Box key={order.id} sx={{ border: 1, borderColor: 'divider', padding: 2, marginBottom: 2, marginLeft: 2 }}>
             <Typography variant="body1">Order ID: {order.id}</Typography>
-            <Typography variant="body1">Customer: {order.customer}</Typography>
-            <Typography variant="body1">Total: ${order.total}</Typography>
+            <Typography variant="body1">Total: ${formatPrice(order.total)}</Typography>
             <Typography variant="body1">Status: {order.status}</Typography>
-            {/* Adicione mais informações do pedido conforme necessário */}
-            <Button onClick={() => handleEditOrder(order.id)}>Edit</Button>
+            <Button onClick={() => handleOpenOrder(order.id)}>Open</Button>
+            <Button disabled onClick={() => handleEditOrder(order.id)}>Edit (BETA)</Button>
             <Button onClick={() => handleRemoveOrder(order.id)}>Remove</Button>
           </Box>
         ))}

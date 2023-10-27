@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import OrdersPanel from './OrdersPanel'; // Componente para exibir pedidos
 import ProductsPanel from './ProductsPanel'; // Componente para administrar produtos
-import MenuHeader from '../components/MenuHeader';
 
 export default function AdminMenu() {
   const [currentTab, setCurrentTab] = useState(0);
@@ -12,9 +11,8 @@ export default function AdminMenu() {
   };
 
   return (
-      <div>
-        <MenuHeader />
-      <Typography variant="h5" sx={{ textAlign: 'center', marginBottom: 2, marginTop: 2}}>
+    <div>
+      <Typography variant="h5" sx={{ textAlign: 'center', marginBottom: 2, marginTop: 2 }}>
         Admin Dashboard
       </Typography>
 

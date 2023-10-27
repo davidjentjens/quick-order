@@ -18,6 +18,16 @@ export const getOrder = async (id: string) => {
   }
 };
 
+export const removeOrder = async (id: string) => {
+  try {
+    const response = await api.delete(`/orders/${id}`);
+    return response.data;
+  } catch (error) {
+    //toast('Error while deleting order', { type: 'error' })
+    throw error;
+  }
+};
+
 export const createOrder = async (orderData: Order) => {
   try {
     const response = await api.post('/orders', orderData);
