@@ -32,7 +32,7 @@ export function DishList({ dishes }: DishListProps) {
     return (
         <div style={{ padding: '16px' }}>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container alignItems={'flex-start'} spacing={{ xs: 2, md: 3 }}>
+                <Grid container alignItems={'flex-start'} spacing={2}>
                     <Grid item xs={12}>
                         {/* Conditionally render the banner only if it's not a phone */}
                         {!isPhone && (
@@ -53,12 +53,14 @@ export function DishList({ dishes }: DishListProps) {
                     </Grid>
                 </Grid>
 
+                <br/>
+
                 {/* List the other dishes */
-                    <Grid container alignItems={'flex-start'} spacing={{ xs: 2, md: 3 }}>
+                    <Grid container alignItems={'stretch'} spacing={2}>
                         {shuffledDishes
                             .slice(2) // Skip the first two dishes
                             .map((dish, index) => (
-                                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+                                <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={index}>
                                     <DishCard {...dish} />
                                 </Grid>
                             ))}
