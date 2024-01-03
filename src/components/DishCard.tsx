@@ -25,7 +25,7 @@ export default function DishCard(dishProps: Dish) {
     }).format(price);
 
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ minWidth: 275, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <CardContent>
                 <CardMedia
                     sx={{ height: 140 }}
@@ -40,11 +40,11 @@ export default function DishCard(dishProps: Dish) {
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {description}
                 </Typography>
+            </CardContent>
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', padding: 2 }}>
                 <Typography variant="h6" component="div" color="#8f2b0a">
                     {formattedPrice}
                 </Typography>
-            </CardContent>
-            <CardActions>
                 <Button size="small" color="error" onClick={addToCart} startIcon={<ShoppingCartIcon />}>Add to Cart</Button>
             </CardActions>
         </Card>
